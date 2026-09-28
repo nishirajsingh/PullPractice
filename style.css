@@ -1,16 +1,62 @@
-*{
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-}
-body{
-    background-color: blue;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 50px;
+body {
+  /* Classic monospace typewriter/terminal font */
+  font-family: "Courier New", Courier, monospace;
+  text-align: center;
+  margin-top: 100px;
+  /* Warm vintage off-white background */
+  background-color: #313d37;
+  color: #2b2b2b;
 }
 
-input {
-    padding: 10px;
-    background-color: aqua;
-    color: white;
+h1 {
+  font-size: 70px;
+  margin-bottom: 30px;
+  display: inline-block;
+  background-color: #ffe66d;
+  padding: 10px 40px;
+  /* Thick black retro outline + hard offset shadow */
+  border: 4px solid #1a1a1a;
+  box-shadow: 6px 6px 0px #1a1a1a;
+  border-radius: 4px;
+}
+h2{
+    font-size: 90px;
+    padding: -20px;
+    color: beige;
+}
+
+button {
+  font-family: inherit;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 12px 24px;
+  margin: 8px;
+  cursor: pointer;
+  border-radius: 4px;
+  /* Chunky comic / retro outline */
+  border: 3px solid #1a1a1a;
+  box-shadow: 4px 4px 0px #1a1a1a;
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+/* Individual retro colors for each button */
+#decreaseBtn {
+  background-color: #ff6b6b; /* Retro salmon red */
+  color: #fff;
+}
+
+#resetBtn {
+  background-color: #4ecdc4; /* Retro teal / cyan */
+  color: #1a1a1a;
+}
+
+#increaseBtn {
+  background-color: #95e1d3; /* Retro pastel green */
+  color: #1a1a1a;
+}
+
+/* Tactile push-button effect when clicked */
+button:active {
+  transform: translate(3px, 3px);
+  box-shadow: 1px 1px 0px #1a1a1a;
 }

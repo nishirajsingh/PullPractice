@@ -1,0 +1,34 @@
+name: Auto-Merge No Conflict PRs
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+
+jobs:
+  auto-merge:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Check mergeability and Merge PR
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # 1. Fetch PR details using GitHub CLI to check mergeable status
+          MERGEABLE_STATUS=$(gh pr view "$PR_URL" --json mergeable --jq '.mergeable')
+          
+          echo "Current PR mergeable status: $MERGEABLE_STATUS"
+
+          # 2. If it is MERGEABLE (meaning NO conflicts), merge it directly
+          if [ "$MERGEABLE_STATUS" = "MERGEABLE" ]; then
+            echo "No conflicts detected. Merging the pull request..."
+            gh pr merge "$PR_URL" --merge --delete-branch
+          elif [ "$MERGEABLE_STATUS" = "CONFLICTING" ]; then
+            echo "Conflicts detected! Skipping auto-merge."
+            exit 0
+          else
+            echo "PR status is $MERGEABLE_STATUS (possibly checking background status). Skipping for now."
+          fi
